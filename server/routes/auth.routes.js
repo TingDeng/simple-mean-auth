@@ -15,7 +15,7 @@ router.post('/register', function(req, res) {
     if(err){
       return res.status(500).json({
         err:err
-      });
+      });// passport will show err message design interal
     }
     passport.authenticate('local')(req,res,function(){
       return res.status(200).json({
@@ -31,7 +31,11 @@ router.post('/login', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res) {
-  //Logout route
+  //Logout route , for  express and passport need argument function(req,res)
+   req.logout();// a passport method
+   res.status(200).json({
+     status:'Bye'
+   });
 });
 
 router.get('/status', function(req, res) {
