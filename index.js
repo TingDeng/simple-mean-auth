@@ -22,19 +22,19 @@ var server = express();
 // require routes
 var routes = require('./server/routes/auth.routes.js');
 
-server.set('port', process.env.PORT || 3000);
+server.set('port', process.env.PORT || 3000);//set port at 3000 or..
 // define middleware
 server.use(logger);
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(cookieParser());
 server.use(require('express-session')({
-    secret: 'keyboard cat',
+    secret: 'keyboard cat',//identify your session
     resave: false,
     saveUninitialized: false
 }));
 server.use(passport.initialize());
-server.use(passport.session());
+server.use(passport.session());//how passport set session
 server.use(express.static(path.join(__dirname, 'public')));
 
 // configure passport
@@ -43,7 +43,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // routes
-server.use('/user/', routes);
+server.use('/user/', routes);//sub domain
 
 server.get('/', function(req, res) {
   res.sendFile('public/html/index.html', {root: __dirname});
