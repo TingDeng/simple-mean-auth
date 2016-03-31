@@ -22,11 +22,18 @@ angular.module('myApp')
       access: {restricted: false}
     })
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/login'
     });
 });
 
 angular.module('myApp')
 .run(function ($rootScope, $location, $route, AuthService) {
-  //What is this run thing?
-});
+  //What is this run thing?//rootscope is the boss of others
+  $rootScope.$on('$routeChangeStart',function(event,next,current){
+     AuthService.getUserStatus();
+     if(next.access.restricted && !AnthService.isLoggedIn()){
+       $location.path('/login')
+       $route.reload();//telling router there is a change
+     }
+  });//next.access.restricted is just look up for ..
+});//$on is click event or hover,routeChangeStart is one of ngRoute
