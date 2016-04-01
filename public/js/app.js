@@ -1,4 +1,4 @@
-angular.module('myApp', ['ngRoute']);
+angular.module('myApp', ['ngRoute',]);
 
 angular.module('myApp')
 .config(function ($routeProvider) {
@@ -28,12 +28,14 @@ angular.module('myApp')
 
 angular.module('myApp')
 .run(function ($rootScope, $location, $route, AuthService) {
-  //What is this run thing?//rootscope is the boss of others
-  $rootScope.$on('$routeChangeStart',function(event,next,current){
-     AuthService.getUserStatus();
-     if(next.access.restricted && !AnthService.isLoggedIn()){
-       $location.path('/login')
-       $route.reload();//telling router there is a change
-     }
-  });//next.access.restricted is just look up for ..
-});//$on is click event or hover,routeChangeStart is one of ngRoute
+  //What is this run thing?
+  $rootScope.$on('$routeChangeStart', function(event, next, current){
+    AuthService.getUserStatus();
+    if(next.access.restricted && !AuthService.isLoggedIn()){
+      $location.path('/login')
+      $route.reload(); //telling the router there has been a change
+    }
+  });
+});
+  //next.access.restricted is just look up for ..
+//$on is click event or hover,routeChangeStart is one of ngRoute
