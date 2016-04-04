@@ -15,11 +15,12 @@ function AuthService($q, $timeout, $http) {
     };
 
     function isLoggedIn(){
-      if(user){
-        return true;
-      } else {
-        return false;
-      }
+      return user;
+      // if(user){
+      //   return true;
+      // } else {
+      //   return false;
+      // }
     }
     function getUserStatus(){
       $http.get('/user/status')
